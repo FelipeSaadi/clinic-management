@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using ClinicManagement.API.DTOs.Patient;
+using ClinicManagement.API.DTOs;
 using ClinicManagement.API.Models;
 
 namespace ClinicManagement.API.Config
 {
-	public class MappingConfig
+    public class MappingConfig
 	{
 		public static MapperConfiguration RegisterMaps()
 		{

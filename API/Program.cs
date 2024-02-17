@@ -2,7 +2,7 @@ using API.Model.Context;
 using AutoMapper;
 using ClinicManagement.API.Config;
 using ClinicManagement.API.Models;
-using ClinicManagement.API.Repository.Patient;
+using ClinicManagement.API.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +60,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
+builder.Services.AddScoped<IDoctorPatientRepository, DoctorPatientRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,8 +74,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
-app.UseAuthorization();
 
 app.UseAuthorization();
 

@@ -12,6 +12,7 @@ namespace API.Model.Context
 
 		public DbSet<Patient> Patients { get; set; }
 
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Patient>()
