@@ -1,7 +1,6 @@
 ﻿using ClinicManagement.API.DTOs;
 using ClinicManagement.API.Models;
 using ClinicManagement.API.Repository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +14,7 @@ namespace ClinicManagement.API.Controllers
 		private IDoctorPatientRepository _doctorPatientRepository;
 		private readonly UserManager<Doctor> _userManager;
 
-		public DoctorController(IPatientRepository patientRepository, IDoctorPatientRepository doctorRepository, UserManager userManager)
+		public DoctorController(IPatientRepository patientRepository, IDoctorPatientRepository doctorRepository, UserManager<Doctor> userManager)
 		{
 			_patientRepository = patientRepository ?? throw new ArgumentNullException(nameof(patientRepository));
 			_doctorPatientRepository = doctorRepository ?? throw new ArgumentNullException(nameof(doctorRepository));
@@ -31,10 +30,35 @@ namespace ClinicManagement.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> Register([FromBody] DoctorDto registerDto)
+		public async Task<ActionResult> Register([FromBody] DoctorDto doctorDto)
 		{
-			if (registerDto == null) return BadRequest();
-			return Ok();
+			try
+			{
+				if (!ModelState.IsValid) return BadRequest(ModelState);
+
+				var doctor = new Doctor
+				{
+					UserName = doctorDto.Username,
+					Email = doctorDto.Email
+				};
+
+				var createdDoctor = await _userManager.CreateAsync(doctor, doctorDto.Password);
+
+				if (createdDoctor.Succeeded)
+				{
+					var roleResult = await _userManager.AddToRoleAsync(doctor, "Doctor");
+					if (roleResult.Succeeded)
+					{
+						return Ok("Doctor created");
+					}
+				}
+				return BadRequest("Error to create Doctor user");
+
+			}
+			catch (Exception ex) 
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[HttpPost]

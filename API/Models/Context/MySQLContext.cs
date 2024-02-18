@@ -18,6 +18,25 @@ namespace API.Model.Context
 			modelBuilder.Entity<Patient>()
 				.HasIndex(p => new { p.Cpf }).IsUnique();
 
+			List<IdentityRole<long>> roles = new List<IdentityRole<long>>
+			{
+				new IdentityRole<long>
+				{
+					Id = 1,
+					Name = "Doctor",
+					NormalizedName = "DOCTOR"
+				}
+				,
+				new IdentityRole<long>
+				{
+					Id = 2,
+					Name = "Patient",
+					NormalizedName = "PATIENT"
+				}
+			};
+
+			modelBuilder.Entity<IdentityRole<long>>().HasData(roles);
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}

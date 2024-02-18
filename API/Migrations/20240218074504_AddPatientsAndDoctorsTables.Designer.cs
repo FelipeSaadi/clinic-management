@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicManagement.API.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    [Migration("20240217051852_addTablesAndIdentity")]
-    partial class addTablesAndIdentity
+    [Migration("20240218074504_AddPatientsAndDoctorsTables")]
+    partial class AddPatientsAndDoctorsTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

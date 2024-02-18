@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ClinicManagement.API.Migrations
 {
     /// <inheritdoc />
-    public partial class addTablesAndIdentity : Migration
+    public partial class AddPatientsAndDoctorsTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
